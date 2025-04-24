@@ -1,0 +1,11 @@
+# including these files would overwrite user changes every update
+# use a defaults mod instead
+/packwiz/config.txt
+/packwiz/servers.dat
+# it may be convienient to put the packwiz program here,
+# but it is not part of the pack
+/packwiz/packwiz.exe
+/packwiz/packwiz
+# exclude packwiz exports
+/packwiz/*.zip
+/packwiz/*.mrpack

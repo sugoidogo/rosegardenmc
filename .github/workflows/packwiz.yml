@@ -1,0 +1,190 @@
+name: Packwiz Automated Release
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+  MODRINTH_TOKEN: ${{ secrets.MODRITH_TOKEN }}
+
+jobs:
+  release-notes:
+    name: Publish release notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Export pack variables
+        working-directory: ./packwiz
+        run: for var in $(grep = pack.toml | tr -d ' "'); do echo $var; done >> $GITHUB_ENV
+      - name: Generate Release Notes
+        id: create-release-notes
+        uses: johnyherangi/create-release-notes@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          format: "- {{subject}}"
+      - name: Create Release
+        continue-on-error: true
+        id: release
+        uses: comnoco/create-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.version }}
+          release_name: ${{ env.version }}
+          body: ${{ steps.create-release-notes.outputs.release-notes }}
+    outputs:
+      update: ${{ steps.release.outcome  == 'success' }}
+
+
+  publish-pages:
+    if: ${{ needs.release-notes.outputs.update == 'true' }}
+    name: Publish update to Github Pages
+    needs: release-notes
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download Packwiz
+        working-directory: ./packwiz
+        run: curl -L https://github.com/sugoidogo/packwiz/releases/latest/download/packwiz_linux_amd64.tar.gz | tar -xzvf - packwiz
+      - name: Refresh Hashes
+        working-directory: ./packwiz
+        run: ./packwiz refresh
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  release-modrinth:
+    if: ${{ needs.release-notes.outputs.update == 'true' }}
+    name: Publish Modrinth pack
+    needs: release-notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Export pack variables
+        working-directory: ./packwiz
+        run: for var in $(grep = pack.toml | tr -d ' "'); do echo $var; done >> $GITHUB_ENV
+      - name: Download Packwiz
+        working-directory: ./packwiz
+        run: curl -L https://github.com/sugoidogo/packwiz/releases/latest/download/packwiz_linux_amd64.tar.gz | tar -xzvf - packwiz
+      - name: Build Modrinth Pack
+        working-directory: ./packwiz
+        run: |
+          ./packwiz modrinth export
+          mv ${{ env.name }}*.mrpack ../${{ env.name }}.mrpack
+      - name: Publish Modrinth pack
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ env.name }}.mrpack
+          overwrite: true
+          tag: ${{ env.version	}}
+      - name: Export loader type
+        if: ${{ env.MODRINTH_TOKEN && env.MODRINTH_ID }}
+        run: |
+          if [[ ! -z "${{ env.forge }} "]]; then echo "LOADER=forge" >> $GITHUB_ENV
+          if [[ ! -z "${{ env.fabric }} "]]; then echo "LOADER=fabric" >> $GITHUB_ENV
+          if [[ ! -z "${{ env.neoforge }} "]]; then echo "LOADER=neoforge" >> $GITHUB_ENV
+          if [[ ! -z "${{ env.quilt }} "]]; then echo "LOADER=quilt" >> $GITHUB_ENV
+      - name: Publish to Modrinth
+        if: ${{ env.MODRINTH_TOKEN && env.MODRINTH_ID }}
+        uses: cloudnode-pro/modrinth-publish@v2
+        with:
+          project: ${{ env.MODRINTH_ID }}
+          loaders: ${{ env.LOADER }}
+          token: ${{ env.MODRINTH_TOKEN }}
+          version: ${{ env.version }}
+          files: ${{ env.name }}.mrpack
+
+  release-curseforge:
+    if: ${{ needs.release-notes.outputs.update == 'true' }}
+    name: Publish Curseforge pack
+    needs: release-notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Export pack variables
+        working-directory: ./packwiz
+        run: for var in $(grep = pack.toml | tr -d ' "'); do echo $var; done >> $GITHUB_ENV
+      - name: Download Packwiz
+        working-directory: ./packwiz
+        run: curl -L https://github.com/sugoidogo/packwiz/releases/latest/download/packwiz_linux_amd64.tar.gz | tar -xzvf - packwiz
+      - name: Convert Curseforge Files
+        continue-on-error: true
+        working-directory: ./packwiz
+        run: ./packwiz curseforge detect
+      - name: Build Curseforge Pack
+        working-directory: ./packwiz
+        run: |
+          mkdir -p mods
+          ./packwiz curseforge export
+          mv ${{ env.name }}*.zip ../${{ env.name }}-curseforge.zip
+      - name: Publush Curseforge pack
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ env.name }}-curseforge.zip
+          overwrite: true
+          tag: ${{ env.version	}}
+      - name: Publish to Curseforge
+        if: ${{ env.CURSEFORGE_TOKEN && env.CURSEFORGE_ID }}
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          project_id: ${{ env.CURSEFORGE_ID }}
+          token: ${{ env.CURSEFORGE_TOKEN }}
+          game_endpoint: 'minecraft'
+          file_path: ${{ env.name }}-curseforge.zip
+
+  release-prism:
+    if: ${{ needs.release-notes.outputs.update == 'true' }}
+    name: Publish Prism pack
+    needs: release-notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Export pack variables
+        working-directory: ./packwiz
+        run: for var in $(grep = pack.toml | tr -d ' "'); do echo $var; done >> $GITHUB_ENV
+      - name: Download Packwiz
+        working-directory: ./packwiz
+        run: curl -L https://github.com/sugoidogo/packwiz/releases/latest/download/packwiz_linux_amd64.tar.gz | tar -xzvf - packwiz
+      - name: Build Prism pack
+        run: |
+          cd packwiz
+          ./packwiz serve &
+          cd ..
+          mkdir -p prism/minecraft
+          cd prism/minecraft
+          wget https://github.com/packwiz/packwiz-installer-bootstrap/releases/latest/download/packwiz-installer-bootstrap.jar
+          java -jar packwiz-installer-bootstrap.jar -g http://localhost:8080/pack.toml
+          cd ..
+          zip -r ../${{ env.name }}-prism.zip *
+      - name: Release Prism pack
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ env.name }}-prism.zip
+          overwrite: true
+          tag: ${{ env.version	}}
