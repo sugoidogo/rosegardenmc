@@ -14,3 +14,4 @@ It can also publish updates to Curseforge and/or Modrinth, provided a token and 
 9. (optional) In your repo settings on GitHub, under the Pages environment, add the `MODRINTH_TOKEN` and `MODRINTH_ID` and/or `CURSEFORGE_TOKEN` and `CURSEFORGE_ID` to enable automated releases on the respective site.
 
 Releases and release notes are automatically generated from your `pack.toml` and commit messages. To create a new release, simply increment the `version` value in `pack.toml`, commit, and push.
+Note that the prism pack requires a system installation of java version 21 or higher for the packwiz updater.
