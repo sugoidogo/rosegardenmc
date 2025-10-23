@@ -9,7 +9,8 @@ It can also publish updates to Curseforge and/or Modrinth, provided a token and 
 4. Replace or remove `modpack.png` and update or remove the `iconKey` in `instance.cfg` accordingly
 5. Replace this `README.md` and the `LICENSE.md` files as appropriate for your modpack
 6. Use `packwiz` to add mods to your pack in the `packwiz` folder
-7. Commit and push to GitHub.
-8. (optional) In your repo settings on GitHub, under the Pages environment, add the `MODRINTH_TOKEN` and `MODRINTH_ID` and/or `CURSEFORGE_TOKEN` and `CURSEFORGE_ID` to enable automated releases on the respective site.
+7. Test modrith export: `packwiz modrinth export`. If it fails with notification about manual downloads, you'll need to add those mods from Modrinth instead of Curseforge. If they are not availible on Modrith, do not add the jar files to the mods folder or add them via direct download url instead, as this would violate the licence terms of those mods.
+8. Commit and push to GitHub.
+9. (optional) In your repo settings on GitHub, under the Pages environment, add the `MODRINTH_TOKEN` and `MODRINTH_ID` and/or `CURSEFORGE_TOKEN` and `CURSEFORGE_ID` to enable automated releases on the respective site.
 
 Releases and release notes are automatically generated from your `pack.toml` and commit messages. To create a new release, simply increment the `version` value in `pack.toml`, commit, and push.
