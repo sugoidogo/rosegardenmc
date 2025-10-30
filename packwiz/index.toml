@@ -188,12 +188,12 @@ metafile = true
 
 [[files]]
 file = "mods/fabric-api.pw.toml"
-hash = "a1a202ae0975dce6a24cdae0b2a8aec6ca862afe7cc1d6b8275678e4b4775b32"
+hash = "446f8047ee9168b65fe9d4600f82cb915c7aa0d0f049a344177ba340a5b93a8a"
 metafile = true
 
 [[files]]
 file = "mods/fabric-language-kotlin.pw.toml"
-hash = "d603d3af57d7425dd7abf0edea73a792d7d6809e41b8989f4f4a35152bb84c71"
+hash = "d7c055f277c1751122d9abc5f09015e629699e04a9383cd0c666b33436293079"
 metafile = true
 
 [[files]]
@@ -209,6 +209,11 @@ metafile = true
 [[files]]
 file = "mods/ferritecore-fabric.pw.toml"
 hash = "1bcebf42f650151bf068b968e2b27b05c4b278bb9a31f2c0b64c4a462d3ff787"
+metafile = true
+
+[[files]]
+file = "mods/fuji.pw.toml"
+hash = "387cd8c7a73345e1e45dfb7b224410d3a5f4c9990f4dfead163b3afc6e42d1e9"
 metafile = true
 
 [[files]]
@@ -229,6 +234,11 @@ metafile = true
 [[files]]
 file = "mods/language-reload.pw.toml"
 hash = "2bc8b07ea5cdc6154bd985cdbfed7df614a030d999254c996e696fd88046f0ea"
+metafile = true
+
+[[files]]
+file = "mods/ledger.pw.toml"
+hash = "c12090d1aa1239085a4b3d790900823ad14a40eacbd8fa42d9626d22995a8a80"
 metafile = true
 
 [[files]]
