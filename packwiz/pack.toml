@@ -1,6 +1,6 @@
-name = "The Rose Garden"
+name = "RoseGarden"
 author = "SugoiDogo"
-version = "6.4.0"
+version = "6.4.1"
 pack-format = "packwiz:1.1.0"
 
 [index]
