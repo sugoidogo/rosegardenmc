@@ -1,13 +1,13 @@
-name = "CHANGEME"
-author = "CHANGEME"
-version = "0.0.0"
+name = "The Rose Garden"
+author = "SugoiDogo"
+version = "6.4.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "7b81c9e9d9e6e21a9865a2dded0dfd77e7683d679b98fe5b0114eaed9a31f17e"
+hash = "a1b922f6fd2fba46db4b2777f30fe1c64f71556160d670b96969b8fcdf65472c"
 
 [versions]
-forge = "47.4.0"
-minecraft = "1.20.1"
+fabric = "0.16.14"
+minecraft = "1.21.1"
