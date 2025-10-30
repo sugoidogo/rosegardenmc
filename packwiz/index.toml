@@ -130,6 +130,11 @@ hash = "18f9e66d50c38fca6d079e8b6c01feb62f2966bac7f0aff94eb3f62e75dc7d4f"
 metafile = true
 
 [[files]]
+file = "mods/chunk-loaders.pw.toml"
+hash = "95a409d7794c80fd1f5bab4ad082a8b165a678435c32948b46597c157834a6db"
+metafile = true
+
+[[files]]
 file = "mods/cloth-config.pw.toml"
 hash = "7621c38bf5eb90cc7458a78eeab30088bae4bf9f29f72bbc2a2a7c37fc06b551"
 metafile = true
@@ -320,6 +325,11 @@ hash = "a4c6cfbbcd003860823892bc6286e3363c4db4265aceee706e3fec99bc8fb242"
 metafile = true
 
 [[files]]
+file = "mods/scarecrows-territory.pw.toml"
+hash = "1791c5687446155f2dc0514e2d44e093d59fb20d0d1acbdd7792423ea7a23375"
+metafile = true
+
+[[files]]
 file = "mods/sodium-extra.pw.toml"
 hash = "ebe5f1bddd8a2fafb5d2565fee640568345bf132c49335232fb9653915ed11f4"
 metafile = true
@@ -327,6 +337,16 @@ metafile = true
 [[files]]
 file = "mods/sodium.pw.toml"
 hash = "18c00f3e6a451375653b9492e067ee55874b7e2562caca6bbafee525f3d96c8d"
+metafile = true
+
+[[files]]
+file = "mods/supermartijn642s-config-lib.pw.toml"
+hash = "8e009ac87710fbd8f5990285d36ab2b4755e932664ca1bcb9cdfac116d6e3b6d"
+metafile = true
+
+[[files]]
+file = "mods/supermartijn642s-core-lib.pw.toml"
+hash = "a21afaf5777783244b77cd9b4333759bfa94ddd3ddc359f1a00355100430f177"
 metafile = true
 
 [[files]]
