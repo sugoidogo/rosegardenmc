@@ -1,13 +1,13 @@
 name = "RoseGarden"
-author = "SugoiDogo"
-version = "6.4.2"
+author = "sugoidogo"
+version = "10.5.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "6073b7b0f10ce994eaf27f558f939f1b40ad3efff9211430a33833052c00dd55"
+hash = "3ab565673a2ef85ce251eaa172d2bd164fe8052f4ce95f56c9dddc3f3b72a13b"
 
 [versions]
-fabric = "0.16.14"
-minecraft = "1.21.1"
+fabric = "0.17.2"
+minecraft = "1.21.8"
