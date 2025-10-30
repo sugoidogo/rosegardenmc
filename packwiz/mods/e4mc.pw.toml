@@ -1,6 +1,6 @@
 name = "e4mc"
 filename = "e4mc_minecraft-fabric-5.3.1.jar"
-side = "both"
+side = "client"
 
 [download]
 hash-format = "sha1"
