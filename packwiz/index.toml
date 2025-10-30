@@ -117,6 +117,11 @@ hash = "5711358de644e8fbbb3fd0ccde6ea736abc0a2fe2a681a91ceee2ee759c546d8"
 metafile = true
 
 [[files]]
+file = "mods/cc-tweaked.pw.toml"
+hash = "f583de4c5ee2d0de4ded1d98960f70d098faae4ad529e854d46ab62bfc67bc1e"
+metafile = true
+
+[[files]]
 file = "mods/cit-resewn.pw.toml"
 hash = "d56a650e6a901b9e84052229a90662b507dda74df65285d3d6ae2a8c71fd9975"
 metafile = true
