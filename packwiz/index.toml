@@ -135,6 +135,16 @@ hash = "95a409d7794c80fd1f5bab4ad082a8b165a678435c32948b46597c157834a6db"
 metafile = true
 
 [[files]]
+file = "mods/chunky-offline.pw.toml"
+hash = "b0ec2b6bb06ca0af183a3010e9b691613b0372cc8a78506439f2e219b22b2793"
+metafile = true
+
+[[files]]
+file = "mods/chunky.pw.toml"
+hash = "d7bf322a76167250e976b884602ebc1e6115b77ee3b4f4eaf07577e97352af18"
+metafile = true
+
+[[files]]
 file = "mods/cloth-config.pw.toml"
 hash = "7621c38bf5eb90cc7458a78eeab30088bae4bf9f29f72bbc2a2a7c37fc06b551"
 metafile = true

@@ -1,0 +1,13 @@
+name = "Chunky Offline"
+filename = "chunky-offline-v1.0.1.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/VfHc5JEX/versions/mqIp4voZ/chunky-offline-v1.0.1.jar"
+hash-format = "sha512"
+hash = "3cc3cbbba4469ebf5210074abaee060bdf0cd3adc0652d9beac5de74a17d139f25c1f49e5730e6b454a889761ff2914df97e39020b1bcfea523ca73e51c13ff9"
+
+[update]
+[update.modrinth]
+mod-id = "VfHc5JEX"
+version = "mqIp4voZ"
